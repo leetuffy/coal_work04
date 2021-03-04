@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.coal.dao.coalMapper">
+    <sql id="coal_limit">
+        limit 1000
+    </sql>
+    <select id="getOne" resultType="coal">
+        select * from co limit 1;
+    </select>
+    <select id="getCO"  resultType="coal">
+        select * from co
+        <include refid="coal_limit"/>;
+    </select>
+    <select id="getWasi"  resultType="coal">
+        select * from wasi
+        <include refid="coal_limit"/>;
+    </select>
+    <select id="getCO_special" resultType="string">
+        select ${type}(CAST(point_value as DECIMAL)) from co where point_location like #{name} group by point_code
+        <include refid="coal_limit"/>;
+    </select>
+    <select id="getWasi_special" resultType="string">
+        select ${type}(CAST(point_value as DECIMAL)) from wasi where point_location like #{name} group by point_code
+        <include refid="coal_limit"/>;
+    </select>
+</mapper>
